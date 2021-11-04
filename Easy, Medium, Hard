@@ -188,6 +188,153 @@ FROM TRIANGLES;
 
 """
 
-22.
+22.Revising Aggregations - The Count Function
 
+SELECT COUNT(*)
+FROM CITY
+WHERE POPULATION > 100000;
+
+"""
+
+23.Revising Aggregations - The Sum Function
+
+SELECT SUM(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';
+
+"""
+
+24.Revising Aggregations - Averages
+
+SELECT AVG(POPULATION)
+FROM CITY
+WHERE DISTRICT = 'California';
+
+"""
+
+25.Average Population
+
+SELECT ROUND(AVG(POPULATION))
+FROM CITY;
+
+"""
+
+26.Japan Population
+
+SELECT SUM(POPULATION)
+FROM CITY
+WHERE COUNTRYCODE = 'JPN';
+
+"""
+
+27.Population Density Difference
+
+SELECT MAX(POPULATION) - MIN(POPULATION)
+FROM CITY;
+
+"""
+
+28.The Blunder
+
+SELECT CEIL(AVG(salary) - AVG(REPLACE(salary, 0, '')))
+FROM EMPLOYEES;
+
+"""
+
+29.Top Earners
+1)
+SELECT salary * months AS earnings, COUNT(*)
+FROM Employee
+GROUP BY earnings
+ORDER BY earnings DESC
+LIMIT 1;
+2)
+SELECT CONCAT(MAX(months * salary), '  ', COUNT(employee_id))
+FROM Employee
+WHERE months * salary = (SELECT MAX(months * salary) FROM Employee);
+
+"""
+
+30.Weather Observation Station 2
+
+SELECT ROUND(SUM(LAT_N), 2) AS lat, ROUND(SUM(LONG_W), 2) AS lon
+FROM STATION;
+
+"""
+
+31.Weather Observation Station 13
+
+SELECT TRUNCATE(SUM(LAT_N), 4)
+FROM STATION
+WHERE LAT_N > 38.7880 AND LAT_N < 137.2345;
+
+"""
+
+32.Weather Observation Station 14
+
+SELECT TRUNCATE(MAX(LAT_N), 4)
+FROM STATION
+WHERE LAT_N < 137.2345;
+
+"""
+
+33.Weather Observation Station 15
+
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (SELECT MAX(LAT_N)
+               FROM STATION
+               WHERE LAT_N < 137.2345);
+               
+"""
+
+34.Weather Observation Station 16
+
+SELECT ROUND(MIN(LAT_N), 4)
+FROM STATION
+WHERE LAT_N > 38.7780;
+
+"""
+
+35.Weather Observation Station 17
+
+SELECT ROUND(LONG_W, 4)
+FROM STATION
+WHERE LAT_N = (SELECT MIN(LAT_N)
+               FROM STATION
+               WHERE LAT_N > 38.7780);
+
+"""
+
+36.Population Census
+
+SELECT SUM(CITY.POPULATION)
+FROM CITY
+JOIN COUNTRY 
+ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE CONTINENT = 'Asia';
+
+"""
+
+37.African Cities
+
+SELECT CITY.NAME
+FROM CITY
+JOIN COUNTRY
+ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE CONTINENT = 'Africa';
+
+"""
+
+38.Average Population of Each Continent
+
+SELECT COUNTRY.CONTINENT, FLOOR(AVG(CITY.POPULATION))
+FROM CITY
+JOIN COUNTRY
+ON CITY.COUNTRYCODE = COUNTRY.CODE
+GROUP BY 1;
+
+"""
+
+39.Draw The Triangle 1
 
