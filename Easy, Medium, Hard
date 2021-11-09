@@ -338,3 +338,33 @@ GROUP BY 1;
 
 39.Draw The Triangle 1
 
+SET @row = 21;
+SELECT REPEAT('* ', @row := @row - 1)
+FROM information_schema.tables;
+
+"""
+
+40.Draw The Triangle 2
+
+SET @row = 0;
+SELECT REPEAT('* ', @row := @row + 1)
+FROM information_schema.tables
+WHERE @row <= 19;
+
+"""
+
+41.Occupations
+
+SELECT MIN(IF(Occupation = 'Doctor', Name, NULL)) AS Doctor,
+       MIN(IF(Occupation = 'Professor', Name, NULL)) AS Professor,
+       MIN(IF(Occupation = 'Singer', Name, NULL)) AS Singer,
+       MIN(IF(Occupation = 'Actor', Name, NULL)) AS Actor
+FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) AS row_no
+      FROM OCCUPATIONS) t
+GROUP BY row_no;
+
+"""
+
+42.New Companies
+
+
